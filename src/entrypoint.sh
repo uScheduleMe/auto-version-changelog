@@ -1,12 +1,12 @@
 #!/bin/bash
 set -u
 
+echo "::group::Internal logs"
+
 echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 which python
 python --version
 echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-
-echo "::group::Internal logs"
 
 cd $INPUT_CWD
 echo "Running in $PWD."
