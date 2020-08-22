@@ -4,7 +4,7 @@ set -u
 echo "::group::Internal logs"
 
 cd $INPUT_CWD
-echo "Running in $PWD."
+#echo "Running in $PWD."
 
 echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 which python
