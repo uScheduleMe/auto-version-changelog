@@ -1,6 +1,8 @@
 #!/bin/bash
 set -u
 
+which python
+
 echo "::group::Internal logs"
 
 cd $INPUT_CWD
