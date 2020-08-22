@@ -1,7 +1,10 @@
 #!/bin/bash
 set -u
 
+echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 which python
+python --version
+echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 
 echo "::group::Internal logs"
 
