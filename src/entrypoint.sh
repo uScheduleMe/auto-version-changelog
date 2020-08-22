@@ -3,13 +3,13 @@ set -u
 
 echo "::group::Internal logs"
 
+cd $INPUT_CWD
+echo "Running in $PWD."
+
 echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 which python
 python --version
 echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-
-cd $INPUT_CWD
-echo "Running in $PWD."
 
 # Set up .netrc file with GitHub credentials
 git_setup() {
