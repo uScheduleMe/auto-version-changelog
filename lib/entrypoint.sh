@@ -12,7 +12,7 @@ echo $DIR
 ls -A $DIR
 which python
 python --version
-pip install -r "$DIR/requirements.txt"
+pip install -r "$DIR/../requirements.txt"
 which gitchangelog
 ls
 echo "---------------------------------------------"
