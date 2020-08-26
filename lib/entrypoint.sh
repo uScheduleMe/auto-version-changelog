@@ -15,7 +15,11 @@ echo "---------------------------------------------"
 
 echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 echo "adding and tagging"
-echo "$INPUT_TAG"
+if [[ -n "$INPUT_TAG" ]]
+then
+    INPUT_ADD='.version'
+    INPUT_MESSAGE='automatic version increase'
+fi
 echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 
 # Set up .netrc file with GitHub credentials
