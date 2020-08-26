@@ -100,6 +100,7 @@ echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 echo "adding and tagging"
 if [[ -n "$INPUT_TAG" ]]
 then
+    INPUT_TAG=$(source .version && echo $VERSION)
     INPUT_ADD='.version'
     INPUT_MESSAGE='automatic version increase'
     echo "Incrementing the version"
