@@ -88,28 +88,32 @@ main() {
         echo "Pushing tags to repo..."
         git push --set-upstream origin "$INPUT_REF" --force --tags
     
-        echo "::endgroup::"
         echo "Task completed."
     else
-        echo "::endgroup::"
         echo "Working tree clean. Nothing to commit."
     fi
 }
 
+echo "::endgroup::"
+
 echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 
+echo "::group::CHANGELOG"
 INPUT_ADD='CHANGELOG.md'
 INPUT_MESSAGE='automatic changelog increase'
 echo $INPUT_MESSAGE
 main
+echo "::endgroup::"
 
 echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 
+echo "::group::VERSION"
 INPUT_TAG=$(source .version && echo $VERSION)
 INPUT_ADD='.version'
 INPUT_MESSAGE='automatic version increase'
 echo $INPUT_MESSAGE
 echo $INPUT_TAG
 main
+echo "::endgroup::"
 
 echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
