@@ -13,15 +13,6 @@ which gitchangelog
 ls
 echo "---------------------------------------------"
 
-echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-echo "adding and tagging"
-if [[ -n "$INPUT_TAG" ]]
-then
-    INPUT_ADD='.version'
-    INPUT_MESSAGE='automatic version increase'
-fi
-echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-
 # Set up .netrc file with GitHub credentials
 git_setup() {
     cat <<-EOF >$HOME/.netrc
@@ -56,49 +47,65 @@ tag() {
     if [ -n "$INPUT_TAG" ]; then git tag $INPUT_TAG; fi
 }
 
-# This is needed to make the check work for untracked files
-echo "Staging files..."
-add
-remove
-
-echo "Checking for uncommitted changes in the git working tree..."
-# This section only runs if there have been file changes
-if ! git diff --cached --quiet --exit-code; then
-    git_setup
-
-    git fetch
-
-    # Switch branch (create a new one if it doesn't exist)
-    echo "Switching/creating branch..."
-    git checkout "$INPUT_REF" 2>/dev/null || git checkout -b "$INPUT_REF"
-
-    echo "Pulling from remote..."
-    git fetch && git pull
-
-    echo "Resetting files..."
-    git reset
-
-    echo "Adding files..."
+main() {
+    # This is needed to make the check work for untracked files
+    echo "Staging files..."
     add
-
-    echo "Removing files..."
     remove
+    
+    echo "Checking for uncommitted changes in the git working tree..."
+    # This section only runs if there have been file changes
+    if ! git diff --cached --quiet --exit-code; then
+        git_setup
+    
+        git fetch
+    
+        # Switch branch (create a new one if it doesn't exist)
+        echo "Switching/creating branch..."
+        git checkout "$INPUT_REF" 2>/dev/null || git checkout -b "$INPUT_REF"
+    
+        echo "Pulling from remote..."
+        git fetch && git pull
+    
+        echo "Resetting files..."
+        git reset
+    
+        echo "Adding files..."
+        add
+    
+        echo "Removing files..."
+        remove
+    
+        echo "Creating commit..."
+        commit
+    
+        echo "Tagging commit..."
+        tag
+    
+        echo "Pushing commits to repo..."
+        git push --set-upstream origin "$INPUT_REF"
+    
+        echo "Pushing tags to repo..."
+        git push --set-upstream origin "$INPUT_REF" --force --tags
+    
+        echo "::endgroup::"
+        echo "Task completed."
+    else
+        echo "::endgroup::"
+        echo "Working tree clean. Nothing to commit."
+    fi
+}
 
-    echo "Creating commit..."
-    commit
-
-    echo "Tagging commit..."
-    tag
-
-    echo "Pushing commits to repo..."
-    git push --set-upstream origin "$INPUT_REF"
-
-    echo "Pushing tags to repo..."
-    git push --set-upstream origin "$INPUT_REF" --force --tags
-
-    echo "::endgroup::"
-    echo "Task completed."
+echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+echo "adding and tagging"
+if [[ -n "$INPUT_TAG" ]]
+then
+    INPUT_ADD='.version'
+    INPUT_MESSAGE='automatic version increase'
+    echo "Incrementing the version"
 else
-    echo "::endgroup::"
-    echo "Working tree clean. Nothing to commit."
+    echo "Not incrementing the version"
 fi
+echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+
+main
