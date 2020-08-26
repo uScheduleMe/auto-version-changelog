@@ -97,16 +97,19 @@ main() {
 }
 
 echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-echo "adding and tagging"
-if [[ -n "$INPUT_TAG" ]]
-then
-    INPUT_TAG=$(source .version && echo $VERSION)
-    INPUT_ADD='.version'
-    INPUT_MESSAGE='automatic version increase'
-    echo "Incrementing the version"
-else
-    echo "Not incrementing the version"
-fi
+
+INPUT_ADD='CHANGELOG.md'
+INPUT_MESSAGE='automatic changelog increase'
+echo $INPUT_MESSAGE
+main
+
 echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 
+INPUT_TAG=$(source .version && echo $VERSION)
+INPUT_ADD='.version'
+INPUT_MESSAGE='automatic version increase'
+echo $INPUT_MESSAGE
+echo $INPUT_TAG
 main
+
+echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
