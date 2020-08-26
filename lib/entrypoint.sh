@@ -6,11 +6,16 @@ echo "::group::Internal logs"
 cd $INPUT_CWD
 echo "Running in $PWD."
 
-echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+echo "---------------------------------------------"
 which python
 python --version
 which gitchangelog
 ls
+echo "---------------------------------------------"
+
+echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+echo "adding and tagging"
+echo "$INPUT_TAG"
 echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 
 # Set up .netrc file with GitHub credentials
