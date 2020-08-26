@@ -70,6 +70,7 @@ main() {
     
         echo "Pulling from remote..."
         git fetch && git pull
+        git pull --tags
     
         echo "Resetting files..."
         git reset
