@@ -7,6 +7,9 @@ cd $INPUT_CWD
 echo "Running in $PWD."
 
 echo "---------------------------------------------"
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+echo $DIR
+ls -A $DIR
 which python
 python --version
 which gitchangelog
