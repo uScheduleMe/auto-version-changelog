@@ -15,6 +15,14 @@ python3 --version
 python3 -m pip install -r "$DIR/../requirements.txt"
 which gitchangelog
 ls
+RC=".gitchangelog.rc"
+if ! [[ -f "$RC" ]]
+then
+    echo "Copying in $RC"
+    cp $DIR/../$RC ./
+else
+    RC=""
+fi
 echo "---------------------------------------------"
 
 # Set up .netrc file with GitHub credentials
@@ -125,6 +133,16 @@ INPUT_MESSAGE='automatic version increase'
 echo $INPUT_MESSAGE
 echo $INPUT_TAG
 main
+echo "::endgroup::"
+
+###############################################################################
+
+echo "::group::CLEANUP"
+if [[ "$RC" != "" ]]
+then
+    echo "Removing $RC"
+    rm "$RC"
+fi
 echo "::endgroup::"
 
 ###############################################################################
