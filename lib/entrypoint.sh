@@ -12,6 +12,7 @@ echo $DIR
 ls -A $DIR
 which python3
 python3 --version
+python3 -m pip install setuptools
 python3 -m pip install -r "$DIR/../requirements.txt"
 which gitchangelog
 ls
