@@ -19,6 +19,13 @@ then
 else
     RC=""
 fi
+if [[ -n "$INPUT_VERSIONFILE" ]]
+then
+    INPUT_VERSIONFILE='.version'
+fi
+if [[ -n "$INPUT_CHANGELOGFILE" ]]
+then
+    INPUT_CHANGELOGFILE='CHANGELOG.md'
 echo "---------------------------------------------"
 
 # Set up .netrc file with GitHub credentials
@@ -113,19 +120,10 @@ echo "::endgroup::"
 
 ###############################################################################
 
-echo "::group::CHANGELOG"
-INPUT_ADD='CHANGELOG.md'
-INPUT_MESSAGE='automatic changelog increase'
-echo $INPUT_MESSAGE
-main
-echo "::endgroup::"
-
-###############################################################################
-
-echo "::group::VERSION"
+echo "::group::COMMIT"
+INPUT_ADD="$INPUT_VERSIONFILE $INPUT_CHANGELOGFILE"
+INPUT_MESSAGE='automatic changelog generation and version increment'
 INPUT_TAG=$(source .version && echo $VERSION)
-INPUT_ADD='.version'
-INPUT_MESSAGE='automatic version increase'
 echo $INPUT_MESSAGE
 echo $INPUT_TAG
 main
