@@ -9,13 +9,8 @@ echo "Running in $PWD."
 echo "---------------------------------------------"
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 echo $DIR
-ls -A $DIR
-which python3
-python3 --version
 python3 -m pip install setuptools
 python3 -m pip install -r "$DIR/../requirements.txt"
-which gitchangelog
-ls
 RC=".gitchangelog.rc"
 if ! [[ -f "$RC" ]]
 then
@@ -113,7 +108,7 @@ echo "::endgroup::"
 ###############################################################################
 
 echo "::group::GITCHANGELOG"
-DEBUG_GITCHANGELOG=true gitchangelog
+gitchangelog
 echo "::endgroup::"
 
 ###############################################################################
