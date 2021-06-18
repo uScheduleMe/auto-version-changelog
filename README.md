@@ -49,7 +49,7 @@ jobs:
           python-version: '3.7'
 
       - name: Make commit for auto-generated changelog
-        uses: uScheduleMe/auto-version-changelog@other
+        uses: uScheduleMe/auto-version-changelog@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
